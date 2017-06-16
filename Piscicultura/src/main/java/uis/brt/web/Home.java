@@ -14,7 +14,6 @@ public class Home {
 	
 	private EventBus bus;
 	
-
 	public Home(EventBus bus) {
 		this.bus = bus;
 	}
@@ -23,12 +22,10 @@ public class Home {
 	@Produces(MediaType.TEXT_PLAIN) //@Produces("application/xml")
 	public String seleccion() {
  
- 
 		String result = "\n\n\n\n\t copie y pegue en la barra de direccion el tipo de pez"
 				+ "\n\n\t /frio \n\n \to \n\n\t /calido";
 		
 		result = result + "\n\n\n\n\t el bus es null : " + (bus == null); 
-		
 		
 		return result ;
 	}
@@ -44,7 +41,7 @@ public class Home {
 		result = result + "\n\n\n\n\t el bus es null " + (bus == null); 
 		
 		System.out.println(result);
-		//thisEB.post(pez);
+		bus.post(pez);
 		return  result ;
 	}
 	/*

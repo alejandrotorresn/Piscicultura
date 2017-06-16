@@ -22,7 +22,7 @@ public class PezFrio implements PlatformRule {
 	}
 	@Priority
 	public int getPriority() {
-		return 2;
+		return 0;
 	}
 	@Condition
 	public boolean evaluate() {
@@ -42,7 +42,7 @@ public class PezFrio implements PlatformRule {
 	}
 
 	public void setData(HashMap<String, Object> map) {
-		if(pez.equals(""))
+		if(map.containsKey("tipo"))
 			pez = (String) map.get("tipo");
 		
 		if(map.containsKey("Termometro"))

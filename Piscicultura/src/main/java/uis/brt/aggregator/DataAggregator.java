@@ -45,6 +45,7 @@ public class DataAggregator {
 	public void receiveData(Message message) {
 		String k = message.getName();
 		//if(k.equalsIgnoreCase("Oximetro")){
+				//map.put("tipo", (String) "calido"); // quitar si el webservice esta enviando correctamente
 			map.put(k, message.getMap().get(k));// info que se almacena en el map local
 			//if(!map.containsKey("tipo"))
 				//map.put("tipo", (String)message.getMap().get("tipo"));

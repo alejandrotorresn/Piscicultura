@@ -21,7 +21,7 @@ public class OxigenoAlto implements PlatformRule {
 	}
 	@Priority
 	public int getPriority() {
-		return 1;
+		return 0;
 	}
 	@Condition
 	public boolean evaluate() {
