@@ -1,10 +1,14 @@
 package uis.brt.web;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.google.common.eventbus.EventBus;
 
@@ -19,39 +23,40 @@ public class Home {
 	}
 	
 	@GET
-	@Produces(MediaType.TEXT_PLAIN) //@Produces("application/xml")
-	public String seleccion() {
- 
-		String result = "\n\n\n\n\t copie y pegue en la barra de direccion el tipo de pez"
-				+ "\n\n\t /frio \n\n \to \n\n\t /calido";
+	@Produces(MediaType.TEXT_HTML) //@Produces(MediaType.TEXT_PLAIN) // (MediaType.APPLICATION_JSON)
+	public String seleccion(){
+		String link1 = "http://localhost:8080/home/frio";
+		String link2 = "http://localhost:8080/home/calido";
 		
-		result = result + "\n\n\n\n\t el bus es null : " + (bus == null); 
-		
+		String result =	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
+				+ "</br></br>Escoge el tipo de pez en el estanque"
+				+ "</br></br></br> <A href="+ link1 +">tipo de pez frio</A></br></br>"
+				+ "<A href="+ link2 +">tipo de pez calido</A></br></br>"
+				+ "</blockquote></BODY></HTML>";
 		return result ;
 	}
 	
-	
 	@Path("{pez}")
 	@GET
-	@Produces(MediaType.TEXT_PLAIN) //@Produces("application/xml")
+	@Produces(MediaType.TEXT_HTML) //(MediaType.APPLICATION_JSON) 
 	public String resultado(@PathParam("pez") String pez) {
-		
-		String result = " \n\n\n\n\t el tipo de pez seleccionado fue: \n\n \t" + pez;
-		
-		result = result + "\n\n\n\n\t el bus es null " + (bus == null); 
-		
-		System.out.println(result);
+
 		bus.post(pez);
+		String atras = "http://localhost:8080/home";
+		
+		String result =	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
+				+ "</br></br>El tipo de pez que has escogido fue: " + pez +"</br></br>"
+				+ "<A href="+ atras +">devolverse y escoger otro tipo de pez</A></br></br>"
+				+ "</blockquote></BODY></HTML>";
 		return  result ;
 	}
-	/*
+	
 	@POST
-    @Path("/sendemail")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response sendEmail(@FormParam("email") String email) {
         System.out.println(email);
         return Response.ok("email=" + email).build();
     }
-	*/
 	
 }

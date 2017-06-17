@@ -38,7 +38,7 @@ public class DataAggregator {
 	@Subscribe 
 	public void TipoPez(String tipopez) {
 		map.put("tipo",(String) tipopez); // info del pez que se almacena en el map local
-		System.out.println(" \n *+*+*+* Se determina que los peces son de clima: " + map.get("tipo"));
+		System.out.println("\n *+*+*+* Se determina que los peces son de clima: " + map.get("tipo") + " *+*+*+* \n");
 	}
 
 	@Subscribe //System.out.println("tamaño del mapa " + map.size());
