@@ -25,14 +25,21 @@ public class Home {
 	@GET
 	@Produces(MediaType.TEXT_HTML) //@Produces(MediaType.TEXT_PLAIN) // (MediaType.APPLICATION_JSON)
 	public String seleccion(){
+		String POST ="POST", pez ="pez", text="text", submit ="submit" ;
+		String link0 = "http://localhost:8080/home";
 		String link1 = "http://localhost:8080/home/frio";
 		String link2 = "http://localhost:8080/home/calido";
 		
-		String result =	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
-				+ "</br></br>Escoge el tipo de pez en el estanque"
-				+ "</br></br></br> <A href="+ link1 +">tipo de pez frio</A></br></br>"
-				+ "<A href="+ link2 +">tipo de pez calido</A></br></br>"
-				+ "</blockquote></BODY></HTML>";
+		String result =	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY>"
+				+ "<form action="+ link0 +" method="+POST+">"
+				+ "<blockquote></br></br>ESCOGE EL TIPO DE PEZ EN EL ESTANQUE: </br></br></br>"
+				+ "(los siguientes links se realizaran por metodo get) </br></br>"
+				+ "<A href="+ link1 +">tipo de pez frio</A></br></br>"
+				+ "<A href="+ link2 +">tipo de pez calido</A></br></br></br>"
+				+ "(si se utiliza el boton submit, llena datos y se realizara por metodo post)</br></br>"
+				+ "tipo de pez: <input name="+pez+" type="+text+" /></br></br>"
+				+ "<input type="+submit+" value="+submit+" />"
+				+ "</blockquote></form></BODY></HTML>";
 		return result ;
 	}
 	
@@ -40,12 +47,12 @@ public class Home {
 	@GET
 	@Produces(MediaType.TEXT_HTML) //(MediaType.APPLICATION_JSON) 
 	public String resultado(@PathParam("pez") String pez) {
-
 		bus.post(pez);
 		String atras = "http://localhost:8080/home";
 		
 		String result =	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
 				+ "</br></br>El tipo de pez que has escogido fue: " + pez +"</br></br>"
+				+ "utilizando el metodo GET</br></br>"
 				+ "<A href="+ atras +">devolverse y escoger otro tipo de pez</A></br></br>"
 				+ "</blockquote></BODY></HTML>";
 		return  result ;
@@ -54,9 +61,15 @@ public class Home {
 	@POST
     @Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response sendEmail(@FormParam("email") String email) {
-        System.out.println(email);
-        return Response.ok("email=" + email).build();
-    }
-	
+    public String registropez(@FormParam("pez") String pez){
+		bus.post(pez);
+		String atras = "http://localhost:8080/home";
+		
+		String result =	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
+				+ "</br></br>El tipo de pez que has escogido fue: " + pez +"</br></br>"
+				+ "utilizando el metodo POST</br></br>"
+				+ "<A href="+ atras +">devolverse y escoger otro tipo de pez</A></br></br>"
+				+ "</blockquote></BODY></HTML>";
+		return  result ;
+	}
 }
