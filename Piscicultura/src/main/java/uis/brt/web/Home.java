@@ -60,7 +60,7 @@ public class Home {
 	
 	@POST
     @Produces(MediaType.TEXT_HTML)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	//@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public String registropez(@FormParam("pez") String pez){
 		bus.post(pez);
 		String atras = "http://localhost:8080/home";

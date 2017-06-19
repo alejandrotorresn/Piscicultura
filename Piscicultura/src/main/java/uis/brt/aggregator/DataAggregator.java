@@ -43,20 +43,27 @@ public class DataAggregator {
 
 	@Subscribe //System.out.println("tamaño del mapa " + map.size());
 	public void receiveData(Message message) {
-		String k = message.getName();
+		String k = message.getMap().keySet().toString();
+		k = k.substring(1); // quita el primer caracter [
+		k = k.substring(0, k.length()-1); // quita el ultimo caracter ]
+		
+		System.out.println("esto es lo que se almaceno en k = " + k);
 		//if(k.equalsIgnoreCase("Oximetro")){
 				//map.put("tipo", (String) "calido"); // quitar si el webservice esta enviando correctamente
 			map.put(k, message.getMap().get(k));// info que se almacena en el map local
 			//if(!map.containsKey("tipo"))
 				//map.put("tipo", (String)message.getMap().get("tipo"));
 		//}
-		System.out.println("\n ----- \n Receiving a data, from sensor= " +
-				message.getName() + "\n #" +
-				message.getId() + "\n medido= " + 
-				message.getMap().get(k).toString() +// "\n " +
+		System.out.println("\n ----- \n "
+				+ "Receiving a data, "
+				+ "fron sensor id: " + message.getId() + "," // identificador
+				+ " from crop: " + message.getGrupo() + "," // cultivo
+				+ " pond # " + message.getElemento() + "," // estanque #
+				+ "\n type: " + k + "," // tipo de sensor
+				+ "\n value= " + message.getMap().get(k).toString() // valor medido
 				//map.get(k) + "\n " +
 				//map.get("tipo") + "\n " +
-				"\n ----- \n " );
+				+ "\n ----- \n " );
 
 	}
 	

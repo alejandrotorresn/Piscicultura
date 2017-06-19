@@ -27,8 +27,6 @@ public class SensorTermometro implements Sensor, Runnable {
 	public void start() {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 		executor.scheduleAtFixedRate(this, 1, 6, TimeUnit.SECONDS);
-		//TipoPez(); // agregado momentaneamente para probar reglas de temperatura
-		//System.out.println(" \n *+*+* Se determina que los peces son de clima: " + map.get("tipo"));
 	}
 
 	public void stop() {
@@ -38,7 +36,7 @@ public class SensorTermometro implements Sensor, Runnable {
 		int value = ThreadLocalRandom.current().nextInt(5, 33);
 		//System.out.println("*+ se crea valor aleatorio en termometro  " + value);
 		map.put("Termometro", value);
-		Message message = new Message("111", "Termometro", map );
+		Message message = new Message("111", "Alevines", "1", map );
 		thisEB.post(message);
 	}
 

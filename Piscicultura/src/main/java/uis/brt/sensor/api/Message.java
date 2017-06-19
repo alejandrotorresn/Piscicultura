@@ -4,14 +4,16 @@ import java.util.HashMap;
 
 public class Message {
 
-	private String id;
-	private String name;
-	private HashMap<String, Object> map;
+	private String id; // identificador
+	private String grupo; // numero del cultivo
+	private String elemento; // numero del estanque dentro del cultivo
+	private HashMap<String, Object> map; // tipo de sensor y medicion
 
-	public Message(String id, String name, HashMap<String, Object> map) {
+	public Message(String id, String grupo, String elemento, HashMap<String, Object> map) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.grupo = grupo;
+		this.elemento = elemento;
 		this.map = map;
 	}
 
@@ -21,12 +23,19 @@ public class Message {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
+	
+	public String getGrupo() {
+		return grupo;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
+	}
+
+	public String getElemento() {
+		return elemento;
+	}
+	public void setElemento(String elemento) {
+		this.elemento = elemento;
 	}
 
 	public HashMap<String, Object> getMap() {

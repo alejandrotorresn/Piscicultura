@@ -36,7 +36,7 @@ public class SensorOximetro implements Sensor, Runnable {
 		//System.out.println("*+ se crea valor aleatorio en sensor oxigeno " + value);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Oximetro", value);
-		Message message = new Message("222", "Oximetro", map);
+		Message message = new Message("222", "Alevines", "1", map );
 		thisEB.post(message);
 	}
 
