@@ -3,6 +3,9 @@ package uis.brt.rulesengine;
 import java.util.HashMap;
 
 import org.easyrules.annotation.Rule;
+
+import uis.brt.aggregator.DataAggregator;
+
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Priority;
@@ -11,6 +14,7 @@ import org.easyrules.annotation.Priority;
 public class OxigenoAlto implements PlatformRule {
 
 	private double medicion;
+	DataAggregator dataaggregator = new DataAggregator(); 
 
 	public String getName() {
 		return "Oxigeno Alto";
@@ -30,6 +34,7 @@ public class OxigenoAlto implements PlatformRule {
 	@Action
 	public void execute() throws Exception {
 		System.out.println("XXXXXXXX EJECUCION: Las Valvulas fueron cerradas exitosamente  XXXXXXXX");
+		dataaggregator.action(false);
 	}
 
 	public void setData(HashMap<String, Object> map) {

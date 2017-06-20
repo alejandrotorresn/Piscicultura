@@ -1,3 +1,4 @@
+uis\brt\actuator\api\Actuator.class
 uis\brt\rulesengine\OxigenoBajo.class
 uis\brt\sensor\api\Coordinate.class
 uis\brt\sensor\api\Sensor.class

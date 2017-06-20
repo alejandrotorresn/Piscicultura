@@ -7,7 +7,7 @@ public class Message {
 	private String id; // identificador
 	private String grupo; // numero del cultivo
 	private String elemento; // numero del estanque dentro del cultivo
-	private HashMap<String, Object> map; // tipo de sensor y medicion
+	private HashMap<String, Object> map; // tipo de sensor (String) y medicion (Object)
 
 	public Message(String id, String grupo, String elemento, HashMap<String, Object> map) {
 		super();

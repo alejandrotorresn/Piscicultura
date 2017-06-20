@@ -14,6 +14,7 @@ import uis.brt.sender.RestSender;
 import uis.brt.sensor.api.Coordinate;
 import uis.brt.sensor.api.Message;
 import uis.brt.util.Fecha;
+//import uis.brt.actuator.valvulas;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -27,6 +28,9 @@ public class DataAggregator {
 		// plataforma cloud
 
 	private HashMap<String, Object> map = new HashMap<String, Object>();
+	
+	//ActuatorValvulas actuatorvalvulas = new ActuatorValvulas();
+	
 	
 	public void setState(HashMap<String, Object> map) {
 		//this.map.put(map.get(this), map.)
@@ -46,8 +50,7 @@ public class DataAggregator {
 		String k = message.getMap().keySet().toString();
 		k = k.substring(1); // quita el primer caracter [
 		k = k.substring(0, k.length()-1); // quita el ultimo caracter ]
-		
-		System.out.println("esto es lo que se almaceno en k = " + k);
+		//System.out.println("esto es lo que se almaceno en k = " + k);
 		//if(k.equalsIgnoreCase("Oximetro")){
 				//map.put("tipo", (String) "calido"); // quitar si el webservice esta enviando correctamente
 			map.put(k, message.getMap().get(k));// info que se almacena en el map local
@@ -67,7 +70,11 @@ public class DataAggregator {
 
 	}
 	
-	
+	public void action(boolean actionexecute){
+		
+		//ActuatorValvulas.execute(actionexecute);
+		
+	}
 	
 	
 	
