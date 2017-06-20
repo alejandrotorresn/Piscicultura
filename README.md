@@ -15,11 +15,12 @@ Diseño de una plataforma software que apoye los procesos de crianza en el área d
 	3. setBus inyecta la instacia del EventBus a utilizar para la comunicacion con la plataforma
 
 	4. configure es llamado por la plataforma para configurar el sensor driver
-* Incluir un archivo de configuracion llamamdo config.properties. Las propiedades se definen de tipo valor según esta [definición](https://en.wikipedia.org/wiki/.properties)
+* Incluir en la ruta: src/main/resources dos archivos:
+	1. un archivo de configuracion con nombre config.properties Las propiedades se definen de tipo valor según esta [definición](https://en.wikipedia.org/wiki/.properties)
 
-* Incluir un archivo llamado uis.brt.sensor.api.Sensor dentro de este archivo hay una unica linea con el nombre de la clase implementando el driver
+	2. en la ruta: META-INF/services un archivo llamado uis.brt.sensor.api.Sensor y dentro de este archivo hay una unica linea con el nombre de la clase implementando el driver
 
-* Empaquetar el codigo y los dos archivos descritos anteriormente en un archivo tipo jar
+* Empaquetar todo el proyecto en un .jar
 
 
 # Despliegue del proyecto:

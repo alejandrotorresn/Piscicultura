@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * This class is responsible for providing configuration to different components
@@ -35,9 +37,16 @@ public class ConfigAdmin extends Properties {
 			List<InputStream> streams = loadResources("config.properties", null);
 			
 			for (InputStream inputStream : streams) {
+				/*
+				System.out.println("encontrados " + inputStream);
 				
+				Iterator i = streams.iterator();
+				
+				while(i.hasNext()){
+					 Object x = i.next();
+					System.out.println("objetos " + x);
+				}*/
 				load(inputStream);
-				//System.out.println("leyo esto " + inputStream.toString());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

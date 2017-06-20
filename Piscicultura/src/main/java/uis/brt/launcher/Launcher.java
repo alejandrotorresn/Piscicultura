@@ -1,5 +1,6 @@
 package uis.brt.launcher;
 
+import uis.brt.actuator.admin.ActuatorAdmin;
 import uis.brt.aggregator.DataAggregator;
 import uis.brt.config.ConfigAdmin;
 import uis.brt.persistence.Persistence;
@@ -34,7 +35,10 @@ public class Launcher {
 		
 		SensorAdmin sensorAdmin = new SensorAdmin(theEventBus, configadmin);
 		sensorAdmin.startSensors();
-				
+		
+		//ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
+		//actuatoradmin.startSensors();
+		
 		RulesAdmin rulesAdmin = new RulesAdmin();
 		rulesAdmin.setAgregator(clasedatos);
 		PlatformRule oxyba = new OxigenoBajo();

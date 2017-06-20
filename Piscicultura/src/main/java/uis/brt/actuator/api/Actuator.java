@@ -10,8 +10,8 @@ public interface Actuator {
 
 	public void configure(Properties props);
 
-	// Contiene el estado actual del actuador
-	public boolean state();
+	// Establece el estado del actuador
+	public void state(boolean state);
 		
 	// Activa la finalidad del actuador
 	public void open(); 

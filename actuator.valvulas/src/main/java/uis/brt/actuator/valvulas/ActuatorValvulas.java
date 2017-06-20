@@ -1,11 +1,14 @@
 package uis.brt.actuator.valvulas;
 
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
+
 import uis.brt.actuator.api.Actuator;
 
 public class ActuatorValvulas implements Actuator, Runnable {
 
-	private boolean state = false;
+	private boolean state;
 	
 	public void run() {
 		// TODO Auto-generated method stub
@@ -13,13 +16,19 @@ public class ActuatorValvulas implements Actuator, Runnable {
 	}
 
 	public void configure(Properties props) {
-		// TODO Auto-generated method stub
-		
+		Set keys = props.keySet(); // get set-view of keys
+		Iterator itr = keys.iterator();
+
+		while (itr.hasNext()) {
+			String str = (String) itr.next();
+			System.out.println("The actuator of " + str + " is "
+					+ props.getProperty(str) + ".");
+		}
 	}
 
-	public boolean state() {
-		// TODO Auto-generated method stub
-		return state;
+	public void state(boolean state) {
+
+		this.state = state;
 	}
 
 	public void open() {
@@ -35,8 +44,8 @@ public class ActuatorValvulas implements Actuator, Runnable {
 		
 	}
 
-	public void execute(boolean newstate) {
-		if(state = newstate)
+	public void execute(boolean neworder) {
+		if(neworder)
 			open();
 		else
 			close();
