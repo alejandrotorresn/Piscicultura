@@ -21,8 +21,8 @@ public class ActuatorAdmin {
 	}
 
 	public void startSensors() {
-		System.out.println("\n\n Bus " + bus);
-		System.out.println("Loading actuator ...... \n ");
+		System.out.println("\n\n Loading actuators ...... \n ");
+		System.out.println(" Bus " + bus);
 		for (Actuator actuator : loader) {
 			System.out.println("\n -- Actuator Found = " + actuator);
 			actuator.configure(props);

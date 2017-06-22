@@ -37,16 +37,18 @@ public class ConfigAdmin extends Properties {
 			List<InputStream> streams = loadResources("config.properties", null);
 			
 			for (InputStream inputStream : streams) {
-				/*
+
 				System.out.println("encontrados " + inputStream);
 				
+				
+				/*				
 				Iterator i = streams.iterator();
 				
 				while(i.hasNext()){
 					 Object x = i.next();
 					System.out.println("objetos " + x);
 				}*/
-				load(inputStream);
+				load(inputStream);// carga las propiedades de todos los config.properties
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

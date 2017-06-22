@@ -36,8 +36,8 @@ public class Launcher {
 		SensorAdmin sensorAdmin = new SensorAdmin(theEventBus, configadmin);
 		sensorAdmin.startSensors();
 		
-		//ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
-		//actuatoradmin.startSensors();
+		ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
+		actuatoradmin.startSensors();
 		
 		RulesAdmin rulesAdmin = new RulesAdmin();
 		rulesAdmin.setAgregator(clasedatos);
