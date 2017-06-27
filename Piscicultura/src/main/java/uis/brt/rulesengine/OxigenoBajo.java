@@ -14,6 +14,7 @@ import org.easyrules.annotation.Priority;
 public class OxigenoBajo implements PlatformRule {
 
 	private double medicion;
+	private boolean evalua;
 	DataAggregator dataaggregator = new DataAggregator(); 
 	
 	public String getName() {
@@ -29,7 +30,10 @@ public class OxigenoBajo implements PlatformRule {
 	}
 	@Condition
 	public boolean evaluate() {
-		return medicion <= 4;
+		if(evalua)
+			return medicion <= 4;
+		else
+			return evalua;
 	}
 	@Action
 	public void execute() throws Exception {
@@ -37,9 +41,12 @@ public class OxigenoBajo implements PlatformRule {
 		dataaggregator.action(true);
 	}
 
-	public void setData(HashMap<String, Object> map) {
-		if(map.containsKey("Oximetro"))
-			this.medicion = (Double) map.get("Oximetro");
+	public void setData(HashMap<String, String> map) {
+		if(map.containsValue("oximetro")){
+			medicion = Double.parseDouble(map.get("valor"));
+			evalua = true;
+		}
+		else
+			evalua = false;
 	}
-	
 }

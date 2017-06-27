@@ -2,6 +2,7 @@ package uis.brt.aggregator;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /*
  * Clase en la que se ensambla el mensaje Json que se va a enviar a la plataforma CloudBRT,
@@ -10,6 +11,7 @@ import java.util.Iterator;
 import javax.json.Json;
 import javax.json.JsonObject;
 import uis.brt.config.ConfigAdmin;
+import uis.brt.rulesengine.PlatformRule;
 import uis.brt.sender.RestSender;
 import uis.brt.sensor.api.Coordinate;
 import uis.brt.sensor.api.Message;
@@ -27,7 +29,7 @@ public class DataAggregator {
 		// siguiente parada de la ruta, es de utilidad para la
 		// plataforma cloud
 
-	private HashMap<String, Object> map = new HashMap<String, Object>();
+	private HashMap<String, HashMap> map = new HashMap<String, HashMap>();
 	
 	//ActuatorValvulas actuatorvalvulas = new ActuatorValvulas();
 	
@@ -35,14 +37,27 @@ public class DataAggregator {
 	public void setState(HashMap<String, Object> map) {
 		//this.map.put(map.get(this), map.)
 	}
-	public HashMap<String, Object> getState() {
+	public HashMap<String, HashMap> getState() {
 		return map;
 	}
 	
 	@Subscribe 
 	public void TipoPez(String tipopez) {
-		map.put("tipo",(String) tipopez); // info del pez que se almacena en el map local
-		System.out.println("\n *+*+*+* Se determina que los peces son de clima: " + map.get("tipo") + " *+*+*+* \n");
+
+		System.out.println("\n *+*+*+* Se determina que los peces son de clima: " + tipopez + " *+*+*+* \n");
+		//HashMap<String, Object> t = new HashMap<String, Object>();
+		//map.put("111", (HashMap) t.put("pez", tipopez));
+		//map.put("tipo",(String) tipopez); // info del pez que se almacena en el map local
+		
+		for (Map.Entry<String, HashMap> temporal : map.entrySet()) {
+			String id = temporal.getKey();
+			if (id.equals("111")) {
+				temporal.getValue().put("pez", tipopez);
+				//map.put(id, (HashMap) temporal); // no es necesario
+			}
+		}
+		//String p = (String) (map.get("111")).get("pez");
+		//System.out.println("\n *+*+*+* Se determina que los peces son de clima: " + p + " *+*+*+* \n");
 	}
 
 	@Subscribe //System.out.println("tamaño del mapa " + map.size());
@@ -53,13 +68,13 @@ public class DataAggregator {
 		//System.out.println("esto es lo que se almaceno en k = " + k);
 		//if(k.equalsIgnoreCase("Oximetro")){
 				//map.put("tipo", (String) "calido"); // quitar si el webservice esta enviando correctamente
-			map.put(k, message.getMap().get(k));// info que se almacena en el map local
+//map.put(k, message.getMap().get(k));// info que se almacena en el map local
 			//if(!map.containsKey("tipo"))
 				//map.put("tipo", (String)message.getMap().get("tipo"));
 		//}
 		System.out.println("\n ----- \n "
 				+ "Receiving a data, "
-				+ "fron sensor id: " + message.getId() + "," // identificador
+				+ "from sensor id: " + message.getId() + "," // identificador
 				+ " from crop: " + message.getGrupo() + "," // cultivo
 				+ " pond # " + message.getElemento() + "," // estanque #
 				+ "\n type: " + k + "," // tipo de sensor
@@ -68,6 +83,21 @@ public class DataAggregator {
 				//map.get("tipo") + "\n " +
 				+ "\n ----- \n " );
 
+	}
+	
+	@Subscribe //System.out.println("tamaño del mapa " + map.size());
+	public void ReceiveMapFromSensor(HashMap<String, String> infosensor) {
+		String id = infosensor.get("id");
+		//System.out.println(infosensor);
+		map.put(id, infosensor);
+		System.out.println("\n ----- \n "
+				+ "Receiving a data, "
+				+ "from sensor id: " + id + "," // identificador
+				+ " from crop: " + (map.get(id)).get("grupo") + "," // cultivo
+				+ " pond # " + (map.get(id)).get("elemento") + "," // estanque #
+				+ "\n type: " + (map.get(id)).get("tipo") + "," // tipo de sensor
+				+ "\n value= " + (map.get(id)).get("valor") // valor medido
+				+ "\n ----- \n " );
 	}
 	
 	public void action(boolean actionexecute){

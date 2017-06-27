@@ -23,10 +23,14 @@ import com.google.common.eventbus.EventBus;
 public class SensorTermometro implements Sensor, Runnable {
 
 	private EventBus thisEB;
-	HashMap<String, Object> map = new HashMap<String, Object>();
+	HashMap<String, String> map = new HashMap<String, String>();
 	//Properties prop;
 	//private String pez = "";
 
+	public SensorTermometro(){
+		map.put("pez", "");
+	}
+	
 	public void setBus(EventBus bus) {
 		thisEB=bus;
 	}
@@ -38,13 +42,25 @@ public class SensorTermometro implements Sensor, Runnable {
 
 	public void stop() {
 	}
-	
+	/*
 	public void run() { //System.out.println("tamaño del mapa " + map.size());
 		int value = ThreadLocalRandom.current().nextInt(5, 33);
 		//System.out.println("*+ se crea valor aleatorio en termometro  " + value);
 		map.put("Termometro", value);
 		Message message = new Message("111", "Alevines", "1", map );
 		thisEB.post(message);
+	}
+	*/
+	public void run() { //System.out.println("tamaño del mapa " + map.size());
+		int value = ThreadLocalRandom.current().nextInt(5, 33);
+		//System.out.println("*+ se crea valor aleatorio en termometro  " + value);
+		map.put("id", "111");
+		map.put("grupo", "alevines");
+		map.put("elemento", "1");
+		map.put("tipo", "termometro");
+		map.put("valor", "" + value);
+		//Message message = new Message("111", "Alevines", "1", map );
+		thisEB.post(map);
 	}
 
 	public void configure(Properties props) {

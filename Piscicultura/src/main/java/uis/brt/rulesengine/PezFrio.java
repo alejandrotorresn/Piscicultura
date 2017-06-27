@@ -10,7 +10,8 @@ import org.easyrules.annotation.Priority;
 public class PezFrio implements PlatformRule {
 
 	private int medicion;
-	private String pez = "";
+	private boolean evalua;
+	private String pez="";
 	private String mensaje = "defecto";
 
 	public String getName() {
@@ -26,27 +27,33 @@ public class PezFrio implements PlatformRule {
 	}
 	@Condition
 	public boolean evaluate() {
-		Boolean eval = false;
-		if(pez.equals("frio")){
-			eval = true;
-			if(medicion < 20 )
-				mensaje = "EXCELENTE: la poblacion de peces frios esta en optimas condiciones";
-			else
-				mensaje = "PELIGRO: el agua esta demasiado caliente, poblacion en riesgo";
+		if(evalua)
+			if(pez.equals("frio")){
+				if(medicion < 20 )
+					mensaje = "EXCELENTE: la poblacion de peces frios esta en optimas condiciones";
+				else
+					mensaje = "PELIGRO: el agua esta demasiado caliente, poblacion en riesgo";
+				
+				return true;
 			}
-		return eval;
+		
+		return false;
 	}
 	@Action
 	public void execute() throws Exception {
 		System.out.println(mensaje);
 	}
 
-	public void setData(HashMap<String, Object> map) {
-		if(map.containsKey("tipo"))
-			pez = (String) map.get("tipo");
+	public void setData(HashMap<String, String> map) {
+		//if(map.containsKey("tipo"))
+		//	pez = map.get("tipo");
 		
-		if(map.containsKey("Termometro"))
-			this.medicion = (Integer) map.get("Termometro");
+		if(map.containsValue("termometro")){
+			medicion = Integer.parseInt(map.get("valor"));
+			pez = map.get("pez");
+			evalua = true;
+		}
+		else
+			evalua = false;
 	}
-	
 }

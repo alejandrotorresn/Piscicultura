@@ -3,6 +3,8 @@ package uis.brt.rulesengine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +19,7 @@ public class RulesAdmin implements Runnable {
 
 	RulesEngine rulesEngine;
 	DataAggregator agregator;
-	HashMap<String, Object> state = new HashMap<String, Object>();
+	HashMap<String, HashMap> state = new HashMap<String, HashMap>();
 	List<PlatformRule> rules = new ArrayList<PlatformRule>();
 	
 	public RulesAdmin(){
@@ -43,10 +45,14 @@ public class RulesAdmin implements Runnable {
 	public void run() {
 		state = agregator.getState();
 
-		for (PlatformRule rule : rules) {
-			rule.setData(state);
-		}
-		rulesEngine.fireRules();
+		for (Map.Entry<String, HashMap> temporal : state.entrySet()) {
+			String id = temporal.getKey();
+		    System.out.println("\n analizando el sensor= " + id);
+			for (PlatformRule rule : rules) {
+				rule.setData(state.get(id));
+			}
+			rulesEngine.fireRules();
+		}	
 	}
 
 	public void register(PlatformRule claseregla) {//registro de las reglas a trabajar
