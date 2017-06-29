@@ -44,13 +44,12 @@ public class RulesAdmin implements Runnable {
 
 	public void run() {
 		state = agregator.getState();
-
 		for (Map.Entry<String, HashMap> temporal : state.entrySet()) {
 			String id = temporal.getKey();
-		    System.out.println("\n analizando el sensor= " + id);
 			for (PlatformRule rule : rules) {
 				rule.setData(state.get(id));
 			}
+		    System.out.println("\n == APLICANDO REGLAS EN ESTANQUE ==" + id);
 			rulesEngine.fireRules();
 		}	
 	}

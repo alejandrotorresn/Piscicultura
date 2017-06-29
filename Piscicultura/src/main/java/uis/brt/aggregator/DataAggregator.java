@@ -29,7 +29,7 @@ public class DataAggregator {
 		// siguiente parada de la ruta, es de utilidad para la
 		// plataforma cloud
 
-	private HashMap<String, HashMap> map = new HashMap<String, HashMap>();
+	private HashMap<String, HashMap> map = new HashMap<String, HashMap>(); // Estanque, Objetos
 	
 	//ActuatorValvulas actuatorvalvulas = new ActuatorValvulas();
 	
@@ -90,6 +90,7 @@ public class DataAggregator {
 		String id = infosensor.get("id");
 		//System.out.println(infosensor);
 		map.put(id, infosensor);
+		//System.out.println("\n" + infosensor + "\n ");
 		System.out.println("\n ----- \n "
 				+ "Receiving a data, "
 				+ "from sensor id: " + id + "," // identificador
