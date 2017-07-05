@@ -3,13 +3,13 @@ package uis.brt.rulesengine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import uis.brt.aggregator.DataAggregator;
+import uis.brt.context.ContextInformation;
 
 import org.easyrules.api.RulesEngine;
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
@@ -18,23 +18,28 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 public class RulesAdmin implements Runnable {
 
 	RulesEngine rulesEngine;
-	DataAggregator agregator;
-	HashMap<String, HashMap> state = new HashMap<String, HashMap>();
+	DataAggregator agreggator;
+	//ContextInformation context; // = new ContextInformation();
+	HashMap<String, Object> state = new HashMap<String, Object>();
 	List<PlatformRule> rules = new ArrayList<PlatformRule>();
+	List<ContextInformation> context = new ArrayList<ContextInformation>();
+	HashMap<String, HashMap<String, Object>> bigmap = new HashMap<String, HashMap<String, Object>>();
 	
-	public RulesAdmin(){
+	public RulesAdmin(List<ContextInformation> estanques){
 		//se crea el motor de reglas basado en easy rules
 		rulesEngine = aNewRulesEngine()
 				//.withSkipOnFirstAppliedRule(true) // si cumple una regla salta la otra
 				.withSilentMode(true).build(); // para que no se llene de basura la consola
+		
+		this.context = estanques;
 	}	
 
 	public DataAggregator getAgregator() {
-		return agregator;
+		return agreggator;
 	}
 
-	public void setAgregator(DataAggregator agregator) {
-		this.agregator = agregator;
+	public void setAgregator(DataAggregator agreggator) {
+		this.agreggator = agreggator;
 	}
 	
 	public void start(){
@@ -43,19 +48,19 @@ public class RulesAdmin implements Runnable {
 	}
 
 	public void run() {
-		state = agregator.getState();
-		for (Map.Entry<String, HashMap> temporal : state.entrySet()) {
-			String id = temporal.getKey();
+		
+		bigmap = agreggator.getState();
+		for (Entry<String, HashMap<String, Object>> temporal : bigmap.entrySet()) {
 			for (PlatformRule rule : rules) {
-				rule.setData(state.get(id));
+				rule.setData(temporal.getValue(), context);
 			}
-		    System.out.println("\n == APLICANDO REGLAS EN ESTANQUE ==" + id);
 			rulesEngine.fireRules();
 		}	
 	}
 
 	public void register(PlatformRule claseregla) {//registro de las reglas a trabajar
 		rules.add(claseregla); // registro en lista interna
+		//System.out.println("manera como se estan almacenando en el rules admin las reglas \n" + rules + "\n");
 		rulesEngine.registerRule(claseregla); // registro en motor de easyrules
 	}
 	

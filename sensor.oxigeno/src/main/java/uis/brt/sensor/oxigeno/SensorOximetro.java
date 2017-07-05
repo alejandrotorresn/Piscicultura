@@ -18,8 +18,7 @@ import uis.brt.sensor.api.Sensor;
 public class SensorOximetro implements Sensor, Runnable {
 
 	private EventBus thisEB; 
-	HashMap<String, String> map = new HashMap<String, String>();
-	
+	//HashMap<String, Object> map = new HashMap<String, Object>();
 
 	public void setBus(EventBus bus) {
 		thisEB=bus;
@@ -32,26 +31,13 @@ public class SensorOximetro implements Sensor, Runnable {
 
 	public void stop() {
 	}
-	/*
+	
 	public void run() {
 		Double value = ThreadLocalRandom.current().nextDouble(3.0, 6.0);
 		//System.out.println("*+ se crea valor aleatorio en sensor oxigeno " + value);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("Oximetro", value);
-		Message message = new Message("222", "Alevines", "1", map );
+		//map.put("Oximetro", value);
+		Message message = new Message("2", "Oximetro", value);
 		thisEB.post(message);
-	}
-	*/
-	public void run() { //System.out.println("tamaño del mapa " + map.size());
-		Double value = ThreadLocalRandom.current().nextDouble(3.0, 6.0);
-		//System.out.println("*+ se crea valor aleatorio en termometro  " + value);
-		map.put("id", "222");
-		map.put("grupo", "alevines");
-		map.put("elemento", "1");
-		map.put("tipo", "oximetro");
-		map.put("valor", "" + value);
-		//Message message = new Message("222", "Alevines", "1", map );
-		thisEB.post(map);
 	}
 
 	public void configure(Properties props) {

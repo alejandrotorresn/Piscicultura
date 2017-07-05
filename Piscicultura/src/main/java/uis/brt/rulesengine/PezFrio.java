@@ -1,7 +1,12 @@
 package uis.brt.rulesengine;
 
 import java.util.HashMap;
+import java.util.List;
+
 import org.easyrules.annotation.Rule;
+
+import uis.brt.context.ContextInformation;
+
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Priority;
@@ -10,8 +15,7 @@ import org.easyrules.annotation.Priority;
 public class PezFrio implements PlatformRule {
 
 	private int medicion;
-	private boolean evalua;
-	private String pez="";
+	private String pez = "";
 	private String mensaje = "defecto";
 
 	public String getName() {
@@ -27,33 +31,27 @@ public class PezFrio implements PlatformRule {
 	}
 	@Condition
 	public boolean evaluate() {
-		if(evalua)
-			if(pez.equals("frio")){
-				if(medicion < 20 )
-					mensaje = "EXCELENTE: la poblacion de peces frios esta en optimas condiciones";
-				else
-					mensaje = "PELIGRO: el agua esta demasiado caliente, poblacion en riesgo";
-				
-				return true;
+		Boolean eval = false;
+		if(pez.equals("frio")){
+			eval = true;
+			if(medicion < 20 )
+				mensaje = "EXCELENTE: la poblacion de peces frios esta en optimas condiciones";
+			else
+				mensaje = "PELIGRO: el agua esta demasiado caliente, poblacion en riesgo";
 			}
-		
-		return false;
+		return eval;
 	}
 	@Action
 	public void execute() throws Exception {
 		System.out.println(mensaje);
 	}
 
-	public void setData(HashMap<String, String> map) {
-		//if(map.containsKey("tipo"))
-		//	pez = map.get("tipo");
+	public void setData(HashMap<String, Object> map, List<ContextInformation> context) {
+		if(map.containsKey("tipo"))
+			pez = (String) map.get("tipo");
 		
-		if(map.containsValue("termometro")){
-			medicion = Integer.parseInt(map.get("valor"));
-			pez = map.get("pez");
-			evalua = true;
-		}
-		else
-			evalua = false;
+		if(map.containsKey("Termometro"))
+			this.medicion = (Integer) map.get("Termometro");
 	}
+	
 }

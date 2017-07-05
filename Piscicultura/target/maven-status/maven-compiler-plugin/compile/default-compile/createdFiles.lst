@@ -6,6 +6,7 @@ uis\brt\web\Home.class
 uis\brt\aggregator\DataAggregator.class
 uis\brt\config\ConfigAdmin.class
 uis\brt\rulesengine\PlatformRule.class
+uis\brt\context\ContextInformation.class
 uis\brt\rulesengine\PezFrio.class
 uis\brt\actuator\admin\ActuatorAdmin.class
 uis\brt\persistence\Persistence.class

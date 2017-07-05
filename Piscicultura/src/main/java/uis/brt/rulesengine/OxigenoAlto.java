@@ -1,10 +1,12 @@
 package uis.brt.rulesengine;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.easyrules.annotation.Rule;
 
 import uis.brt.aggregator.DataAggregator;
+import uis.brt.context.ContextInformation;
 
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Action;
@@ -13,9 +15,12 @@ import org.easyrules.annotation.Priority;
 @Rule
 public class OxigenoAlto implements PlatformRule {
 
-	private double medicion;
-	private boolean evalua;
-	DataAggregator dataaggregator = new DataAggregator(); 
+	private HashMap<String, Object> maptemp;
+	//private double medicion;
+	private List<ContextInformation> context;
+	private boolean exe;
+	private String accion = "";
+	//DataAggregator dataaggregator = new DataAggregator(); 
 
 	public String getName() {
 		return "Oxigeno Alto";
@@ -30,23 +35,41 @@ public class OxigenoAlto implements PlatformRule {
 	}
 	@Condition
 	public boolean evaluate() {
-		if(evalua)
-			return medicion >= 5;
-		else
-			return evalua;			
+		if(exe)
+			if(((Integer.parseInt((String) maptemp.get("value"))) >= 5))
+				exe = true; 
+			else
+				exe = false;
+		/*for(ContextInformation x : context){
+			if(x.getDevices().containsValue("Oximetro")){
+				String p = x.getDevices().keySet().toString();
+			}
+		}*/
+		return exe;
 	}
-	@Action
+	@Action // solo se ejecutara, si el return del metodo evaluate, es true
 	public void execute() throws Exception {
-		System.out.println("XXXXXXXX EJECUCION: Las Valvulas fueron cerradas exitosamente  XXXXXXXX");
-		dataaggregator.action(false);
+		String id = (String) maptemp.get("id");
+		String type = (String) maptemp.get("type");
+		for (ContextInformation ins : context) {
+			if(ins.getDevices().containsValue("Oximetro"))
+				if(id.equals(ins.getDevices().get(id)))
+					accion = "XXXXXXXX EJECUCION: Las Valvulas del estanque " + ins.getElement() + " fueron cerradas exitosamente  XXXXXXXX";
+		}
+		System.out.println(accion);
+		//dataaggregator.action(false); comentareado hasta que sea capaz de enviar la info a los actuadores
 	}
 
-	public void setData(HashMap<String, String> map) {
-		if(map.containsValue("oximetro")){
-			medicion = Double.parseDouble(map.get("valor"));
-			evalua = true;
+	public void setData(HashMap<String, Object> map, List<ContextInformation> context) {
+		if(map.containsValue("Oximetro")){ // falta definir bien si se guarda como ahora, el tipo de device o se guarda es: el tipo de medicion
+			//HashMap<String, String> t = new HashMap<String, String>();
+			maptemp = map;
+			this.context = context;
+			exe = true;
 		}
 		else
-			evalua = false;
+			exe = false;
 	}
+
+	
 }

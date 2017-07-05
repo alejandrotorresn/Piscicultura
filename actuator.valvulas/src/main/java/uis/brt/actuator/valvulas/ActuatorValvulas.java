@@ -10,6 +10,11 @@ public class ActuatorValvulas implements Actuator, Runnable {
 
 	private boolean state;
 	
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void configure(Properties props) {
 		Set keys = props.keySet(); // get set-view of keys
 		Iterator itr = keys.iterator();
@@ -22,6 +27,7 @@ public class ActuatorValvulas implements Actuator, Runnable {
 	}
 
 	public void state(boolean state) {
+
 		this.state = state;
 	}
 
@@ -43,20 +49,6 @@ public class ActuatorValvulas implements Actuator, Runnable {
 			open();
 		else
 			close();
-		
-	}
-
-	
-	
-	
-	
-
-	
-	
-	
-	
-	public void run() {
-		// TODO Auto-generated method stub
 		
 	}
 
