@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import uis.brt.actuator.admin.ActuatorAdmin;
 import uis.brt.aggregator.DataAggregator;
 import uis.brt.context.ContextInformation;
 
@@ -19,11 +20,15 @@ public class RulesAdmin implements Runnable {
 
 	RulesEngine rulesEngine;
 	DataAggregator agreggator;
+	ActuatorAdmin actuator;
 	//ContextInformation context; // = new ContextInformation();
 	HashMap<String, Object> state = new HashMap<String, Object>();
+	// lista de las reglas almacenadas en el motor de reglas
 	List<PlatformRule> rules = new ArrayList<PlatformRule>();
+	// lista de las instancias de los estanques existentes
 	List<ContextInformation> context = new ArrayList<ContextInformation>();
-	HashMap<String, HashMap<String, Object>> bigmap = new HashMap<String, HashMap<String, Object>>();
+	// Hahsmap con todos los dispositivos (sensores y actuadores del sistema)
+	HashMap<String, HashMap<String, String>> bigmap = new HashMap<String, HashMap<String, String>>();
 	
 	public RulesAdmin(List<ContextInformation> estanques){
 		//se crea el motor de reglas basado en easy rules
@@ -38,8 +43,9 @@ public class RulesAdmin implements Runnable {
 		return agreggator;
 	}
 
-	public void setAgregator(DataAggregator agreggator) {
+	public void setAgregator(DataAggregator agreggator, ActuatorAdmin actuator) {
 		this.agreggator = agreggator;
+		this.actuator = actuator;
 	}
 	
 	public void start(){
@@ -50,12 +56,15 @@ public class RulesAdmin implements Runnable {
 	public void run() {
 		
 		bigmap = agreggator.getState();
-		for (Entry<String, HashMap<String, Object>> temporal : bigmap.entrySet()) {
+		for (Entry<String, HashMap<String, String>> temporal : bigmap.entrySet()) {
+			//System.out.println("analizando el temporal " + temporal);
 			for (PlatformRule rule : rules) {
-				rule.setData(temporal.getValue(), context);
+				//System.out.println("actualizando regla " + temporal.getValue());
+				rule.setData(temporal.getValue(), context, actuator);
 			}
+			//System.out.println("motor de reglas iniciado");
 			rulesEngine.fireRules();
-		}	
+		}
 	}
 
 	public void register(PlatformRule claseregla) {//registro de las reglas a trabajar

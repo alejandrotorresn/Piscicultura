@@ -20,9 +20,9 @@ public class ActuatorAdmin {
 		loader = ServiceLoader.load(Actuator.class);
 	}
 
-	public void startSensors() {
+	public void startActuators() {
 		System.out.println("\n\n Bus " + bus);
-		System.out.println("Loading actuator ...... \n ");
+		System.out.println("Loading actuators ...... \n ");
 		for (Actuator actuator : loader) {
 			System.out.println("\n -- Actuator Found = " + actuator);
 			actuator.configure(props);
@@ -31,8 +31,16 @@ public class ActuatorAdmin {
 			//actuator.start();
 		}
 	}
+	
+	public void executeActuators(boolean change, String mensajeAction){
+		//System.out.println("estamos dentro de execute actuators con change " + change);
+		for (Actuator actuator : loader) {
+			//System.out.println("estamos en actuator admin en cada actuador enviando el cambio y el mensaje de accion" + actuator);
+			actuator.execute(change, mensajeAction);
+		}
+	}
 
-	public void stopSensors() {
+	public void stopActuators() {
 		for (Actuator actuator : loader) {
 			//actuator.stop();
 		}

@@ -36,7 +36,7 @@ public class SensorOximetro implements Sensor, Runnable {
 		Double value = ThreadLocalRandom.current().nextDouble(3.0, 6.0);
 		//System.out.println("*+ se crea valor aleatorio en sensor oxigeno " + value);
 		//map.put("Oximetro", value);
-		Message message = new Message("2", "Oximetro", value);
+		Message message = new Message("4", "Oximetro", value);
 		thisEB.post(message);
 	}
 

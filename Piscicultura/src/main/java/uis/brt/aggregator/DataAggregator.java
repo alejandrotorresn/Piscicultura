@@ -20,15 +20,15 @@ import com.google.common.eventbus.Subscribe;
 
 public class DataAggregator {
 	
-	private HashMap<String, HashMap<String, Object>> map = new HashMap<String, HashMap<String, Object>>();
+	private HashMap<String, HashMap<String, String>> map = new HashMap<String, HashMap<String, String>>();
 	
 	//ActuatorValvulas actuatorvalvulas = new ActuatorValvulas();
 	
 	
-	public void setState(HashMap<String, Object> map) {
+	public void setState(HashMap<String, String> map) {
 		//this.map.put(map.get(this), map.)
 	}
-	public HashMap<String, HashMap<String, Object>> getState() {
+	public HashMap<String, HashMap<String, String>> getState() {
 		return map;
 	}
 	
@@ -43,10 +43,10 @@ public class DataAggregator {
 	public void receiveData(Message message) {
 		String k = message.getId().toString();  //k = k.substring(1); // quita el primer caracter [  //k = k.substring(0, k.length()-1); // quita el ultimo caracter ]
 		
-		HashMap<String, Object> t = new HashMap<String, Object>(); // Hashmap temporal para guardar la info de cada dispositivo
+		HashMap<String, String> t = new HashMap<String, String>(); // Hashmap temporal para guardar la info de cada dispositivo
 		t.put("id", k);
 		t.put("type",  message.getType().toString());
-		t.put("value", message.getValue());
+		t.put("value", message.getValue().toString());
 		//System.out.println("esto es lo que se almaceno en k = " + k);
 		//if(k.equalsIgnoreCase("Oximetro")){
 				//map.put("tipo", (String) "calido"); // quitar si el webservice esta enviando correctamente

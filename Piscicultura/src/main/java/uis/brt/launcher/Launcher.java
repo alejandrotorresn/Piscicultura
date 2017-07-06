@@ -38,18 +38,18 @@ public class Launcher {
 		theEventBus.register(clasedatos);
 		theEventBus.post(configadmin);
 		
-
+		// guarda las instancias creadas para cada estanque del sistema
 		List<ContextInformation> estanques = new ArrayList<ContextInformation>();
 		
 		ContextInformation context1 = new ContextInformation();
 		HashMap<String, String> ex1 = new HashMap<String, String>();
-		ex1.put("1","termometro"); ex1.put("2","oximetro"); ex1.put("3","phmetro");
+		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("3","Phmetro");
 		context1.testing("1", "1", "cachama", "frio", "iniciacion", ex1);//configadmin.getRoute());
 		estanques.add(context1);
 		
 		ContextInformation context2 = new ContextInformation();
 		HashMap<String, String> ex2 = new HashMap<String, String>();
-		ex2.put("4","oximetro"); ex2.put("5","valvula"); ex2.put("6","llave");
+		ex2.put("4","Oximetro"); ex2.put("5","Valvula"); ex2.put("6","Llave");
 		context2.testing("1", "2", "trucha", "calido", "engorde", ex2);//configadmin.getRoute());
 		estanques.add(context2);
 		
@@ -57,18 +57,18 @@ public class Launcher {
 		sensorAdmin.startSensors();
 		
 		ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
-		actuatoradmin.startSensors();
+		actuatoradmin.startActuators();
 		
-		RulesAdmin rulesAdmin = new RulesAdmin(estanques); // envia las instancias creadas
-		rulesAdmin.setAgregator(clasedatos);
+		RulesAdmin rulesAdmin = new RulesAdmin(estanques); // envia las instancias creadas de cada estanque
+		rulesAdmin.setAgregator(clasedatos, actuatoradmin);
 		PlatformRule oxyba = new OxigenoBajo();
 		PlatformRule oxyal = new OxigenoAlto();
-		PlatformRule pezfri = new PezFrio();
-		PlatformRule pezcal = new PezCalido();
+		//PlatformRule pezfri = new PezFrio();
+		//PlatformRule pezcal = new PezCalido();
 		rulesAdmin.register(oxyba);
 		rulesAdmin.register(oxyal);
-		rulesAdmin.register(pezfri);
-		rulesAdmin.register(pezcal);
+		//rulesAdmin.register(pezfri);
+		//rulesAdmin.register(pezcal);
 		rulesAdmin.start();
 
 		try {

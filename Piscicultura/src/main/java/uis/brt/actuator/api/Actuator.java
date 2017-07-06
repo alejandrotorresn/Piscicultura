@@ -14,11 +14,11 @@ public interface Actuator {
 	public void state(boolean state);
 		
 	// Activa la finalidad del actuador
-	public void open(); 
+	public void open(String mensajeAction); 
 
 	// Detiene la finalidad del actuador
-	public void close(); 
+	public void close(String mensajeAction); 
 	
 	// Se ejecuta dependiendo del estado del actuador
-	public void execute(boolean change);
+	public void execute(boolean change, String mensajeAction);
 }

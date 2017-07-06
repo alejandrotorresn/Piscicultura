@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.easyrules.annotation.Rule;
 
+import uis.brt.actuator.admin.ActuatorAdmin;
 import uis.brt.context.ContextInformation;
 
 import org.easyrules.annotation.Condition;
@@ -46,12 +47,12 @@ public class PezCalido implements PlatformRule {
 		System.out.println(mensaje);
 	}
 
-	public void setData(HashMap<String, Object> map, List<ContextInformation> context) {
+	public void setData(HashMap<String, String> map, List<ContextInformation> context, ActuatorAdmin actuator) {
 		if(map.containsKey("tipo"))
 			pez = (String) map.get("tipo");
 				
 		if(map.containsKey("Termometro"))
-			this.medicion = (Integer) map.get("Termometro");
+			this.medicion = Integer.parseInt(map.get("Termometro"));
 	}
 	
 }

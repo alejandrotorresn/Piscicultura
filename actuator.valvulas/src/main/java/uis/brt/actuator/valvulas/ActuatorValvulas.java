@@ -31,24 +31,27 @@ public class ActuatorValvulas implements Actuator, Runnable {
 		this.state = state;
 	}
 
-	public void open() {
+	public void open(String mensaje) {
 		state = true;
-		System.out.println("OOOOOOOO EJECUCION: Las Valvulas han sido abiertas OOOOOOOO");
+		System.out.println(mensaje);
+		//System.out.println("OOOOOOOO EJECUCION: Las Valvulas han sido abiertas OOOOOOOO");
 		
 		
 	}
 
-	public void close() {
+	public void close(String mensaje) {
 		state = false;
-		System.out.println("XXXXXXXX EJECUCION: Las Valvulas fueron cerradas exitosamente  XXXXXXXX");
+		System.out.println(mensaje);
+		//System.out.println("XXXXXXXX EJECUCION: Las Valvulas fueron cerradas exitosamente  XXXXXXXX");
 		
 	}
 
-	public void execute(boolean neworder) {
+	public void execute(boolean neworder, String mensaje) {
+		//System.out.println("llegamos a actuador de valvulas con orden " + neworder);
 		if(neworder)
-			open();
+			open(mensaje);
 		else
-			close();
+			close(mensaje);
 		
 	}
 
