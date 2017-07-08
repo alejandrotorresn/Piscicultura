@@ -8,6 +8,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import uis.brt.actuator.admin.ActuatorAdmin;
 import uis.brt.aggregator.DataAggregator;
 import uis.brt.context.ContextInformation;
@@ -26,17 +28,17 @@ public class RulesAdmin implements Runnable {
 	// lista de las reglas almacenadas en el motor de reglas
 	List<PlatformRule> rules = new ArrayList<PlatformRule>();
 	// lista de las instancias de los estanques existentes
-	List<ContextInformation> context = new ArrayList<ContextInformation>();
+	List<ContextInformation> pond = new ArrayList<ContextInformation>();
 	// Hahsmap con todos los dispositivos (sensores y actuadores del sistema)
 	HashMap<String, HashMap<String, String>> bigmap = new HashMap<String, HashMap<String, String>>();
 	
-	public RulesAdmin(List<ContextInformation> estanques){
+	public RulesAdmin(List<ContextInformation> pond){
 		//se crea el motor de reglas basado en easy rules
 		rulesEngine = aNewRulesEngine()
 				//.withSkipOnFirstAppliedRule(true) // si cumple una regla salta la otra
 				.withSilentMode(true).build(); // para que no se llene de basura la consola
 		
-		this.context = estanques;
+		this.pond = pond;
 	}	
 
 	public DataAggregator getAgregator() {
@@ -54,13 +56,13 @@ public class RulesAdmin implements Runnable {
 	}
 
 	public void run() {
-		
+		System.out.println("instancias guradadas " + pond);
 		bigmap = agreggator.getState();
-		for (Entry<String, HashMap<String, String>> temporal : bigmap.entrySet()) {
+		for (Entry<String, HashMap<String, String>> sensorInd : bigmap.entrySet()) {
 			//System.out.println("analizando el temporal " + temporal);
 			for (PlatformRule rule : rules) {
 				//System.out.println("actualizando regla " + temporal.getValue());
-				rule.setData(temporal.getValue(), context, actuator);
+				rule.setData(sensorInd.getValue(), pond, actuator);
 			}
 			//System.out.println("motor de reglas iniciado");
 			rulesEngine.fireRules();

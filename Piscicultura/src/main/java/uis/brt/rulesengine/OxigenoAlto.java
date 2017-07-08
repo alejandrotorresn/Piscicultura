@@ -11,12 +11,12 @@ import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Priority;
 
-@Rule
+@Rule//(name = "Oxigeno Alto", description = "Evalua el nivel de oxigeno y si esta por encima de lo necesario cierra la valvula")
 public class OxigenoAlto implements PlatformRule {
 
-	private HashMap<String, String> maptemp;
+	private HashMap<String, String> sensorInd;
 	private double previousvalue = -1;
-	private List<ContextInformation> context;
+	private List<ContextInformation> pond;
 	private boolean exe;
 	private String accion = "";
 	ActuatorAdmin actuator;
@@ -36,7 +36,7 @@ public class OxigenoAlto implements PlatformRule {
 	public boolean evaluate() {
 		//System.out.println("dentro de evaluate " + exe);
 		if(exe){
-			Double x = Double.parseDouble( maptemp.get("value"));
+			Double x = Double.parseDouble( sensorInd.get("value"));
 			if(x != previousvalue){
 				previousvalue = x;	
 				//System.out.println("dentro de if " + maptemp.get("value"));
@@ -58,12 +58,11 @@ public class OxigenoAlto implements PlatformRule {
 	}
 	@Action // solo se ejecutara, si el return del metodo evaluate, es true
 	public void execute() throws Exception {
-		String id =  maptemp.get("id");
-		String type =  maptemp.get("type");
-		for (ContextInformation ins : context) {
+		String id =  sensorInd.get("id"); String type =  sensorInd.get("type");
+		for (ContextInformation ins : pond) {
 			//System.out.println("dentro de execute " + ins);
 			//System.out.println("inst " + ins.getDevices().containsValue("Oximetro"));
-			if(ins.getDevices().containsValue("Oximetro")){
+			if(ins.getDevices().containsValue(type)){
 				//System.out.println("tiene valor de oximetro " + ins.getDevices().containsValue("Oximetro"));
 				//System.out.println("id: " + id + " " + ins.getDevices().containsKey(id) );
 				if(ins.getDevices().containsKey(id)){
@@ -72,15 +71,14 @@ public class OxigenoAlto implements PlatformRule {
 					actuator.executeActuators(false, accion);
 					//System.out.println(accion);
 				}}}
-		
 		//dataaggregator.action(false); comentareado hasta que sea capaz de enviar la info a los actuadores
 	}
 
-	public void setData(HashMap<String, String> map, List<ContextInformation> context, ActuatorAdmin actuator) {
-		if(map.containsValue("Oximetro")){ // falta definir bien si se guarda como ahora, el tipo de device o se guarda es: el tipo de medicion
+	public void setData(HashMap<String, String> sensorInd, List<ContextInformation> pond, ActuatorAdmin actuator) {
+		if(sensorInd.containsValue("Oximetro")){ // falta definir bien si se guarda como ahora, el tipo de device o se guarda es: el tipo de medicion
 			//HashMap<String, String> t = new HashMap<String, String>();
-			maptemp = map;
-			this.context = context;
+			this.sensorInd = sensorInd;
+			this.pond = pond;
 			this.actuator = actuator;
 			exe = true;
 			//System.out.println("map " + map + "\ncontext " + context + "\nexe " + exe);
@@ -89,5 +87,4 @@ public class OxigenoAlto implements PlatformRule {
 			exe = false;
 	}
 
-	
 }

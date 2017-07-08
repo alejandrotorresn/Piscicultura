@@ -14,6 +14,18 @@ public class ContextInformation {
 	public ContextInformation() {
 		}
 	
+	// metodo base para tener algun estanque de prueba almacenado al iniciar el sistema
+	public void basic(){
+		this.group = "1";
+		this.element = "2";
+		this.fish = "trucha";
+		this.weather = "calido";
+		this.cycle = "engorde";
+		HashMap<String, String> example = new HashMap<String, String>();
+		example.put("4","Oximetro"); example.put("5","Valvula"); example.put("6","Llave");
+		devices = example;
+	}
+	
 	public void testing(String group, String element, String fish, String weather, String cycle, HashMap<String, String> device){
 
 		this.group = group;

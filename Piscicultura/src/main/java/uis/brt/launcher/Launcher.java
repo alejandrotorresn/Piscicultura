@@ -33,33 +33,31 @@ public class Launcher {
 		DataAggregator clasedatos = new DataAggregator();
 		RestSender clienterest = new RestSender(configadmin.getProperty("uri"));
 		Persistence basedatos = new Persistence();
-		EventBus theEventBus = new EventBus();
+		EventBus theEventBus = new EventBus();	
+		ContextInformation context = new ContextInformation();
+		// guarda las instancias creadas para cada estanque (pond) del sistema
+		List<ContextInformation> pond = new ArrayList<ContextInformation>();
+		
 		
 		theEventBus.register(clasedatos);
 		theEventBus.post(configadmin);
 		
-		// guarda las instancias creadas para cada estanque del sistema
-		List<ContextInformation> estanques = new ArrayList<ContextInformation>();
-		
-		ContextInformation context1 = new ContextInformation();
 		HashMap<String, String> ex1 = new HashMap<String, String>();
 		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("3","Phmetro");
-		context1.testing("1", "1", "cachama", "frio", "iniciacion", ex1);//configadmin.getRoute());
-		estanques.add(context1);
+		context.testing("1", "1", "cachama", "frio", "iniciacion", ex1);//configadmin.getRoute());
+		pond.add(context);
 		
-		ContextInformation context2 = new ContextInformation();
-		HashMap<String, String> ex2 = new HashMap<String, String>();
-		ex2.put("4","Oximetro"); ex2.put("5","Valvula"); ex2.put("6","Llave");
-		context2.testing("1", "2", "trucha", "calido", "engorde", ex2);//configadmin.getRoute());
-		estanques.add(context2);
-		
+		context = new ContextInformation();
+		context.basic();
+		pond.add(context);
+
 		SensorAdmin sensorAdmin = new SensorAdmin(theEventBus, configadmin);
 		sensorAdmin.startSensors();
 		
 		ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
 		actuatoradmin.startActuators();
 		
-		RulesAdmin rulesAdmin = new RulesAdmin(estanques); // envia las instancias creadas de cada estanque
+		RulesAdmin rulesAdmin = new RulesAdmin(pond); // envia las instancias creadas de cada estanque
 		rulesAdmin.setAgregator(clasedatos, actuatoradmin);
 		PlatformRule oxyba = new OxigenoBajo();
 		PlatformRule oxyal = new OxigenoAlto();
@@ -72,7 +70,7 @@ public class Launcher {
 		rulesAdmin.start();
 
 		try {
-			WebInterface webinterface = new WebInterface(theEventBus);
+			WebInterface webinterface = new WebInterface(theEventBus, context, pond);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

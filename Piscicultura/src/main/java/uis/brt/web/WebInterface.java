@@ -1,5 +1,7 @@
 package uis.brt.web;
 
+import java.util.List;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -8,17 +10,19 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import com.google.common.eventbus.EventBus;
 
+import uis.brt.context.ContextInformation;
+
 public class WebInterface {
 	
 
-	public WebInterface(EventBus bus) throws Exception {// public static void main(String
+	public WebInterface(EventBus bus, ContextInformation context, List<ContextInformation> pond) throws Exception {// public static void main(String
 											// url) throws Exception {
-		ServletContextHandler context = new ServletContextHandler(
+		ServletContextHandler servletcontexthandler = new ServletContextHandler(
 				ServletContextHandler.SESSIONS);
-		context.setContextPath("/");
+		servletcontexthandler.setContextPath("/");
 
 		Server jettyServer = new Server(8080);
-		jettyServer.setHandler(context);
+		jettyServer.setHandler(servletcontexthandler);
 
 		
 		//////  Begin Jersey Code /////
@@ -28,7 +32,7 @@ public class WebInterface {
 		// This is the Jersey Servlet
 		ServletContainer servletContainer = new ServletContainer(config);
 		// Instance of the resource (Web Service), it will use the EventBus instance
-		Home homeResource = new Home(bus);
+		Home homeResource = new Home(bus, context, pond);
 		// Here, the resource (WS) is registered ont Jersey
 		config.register(homeResource);
 		
@@ -37,7 +41,7 @@ public class WebInterface {
 		
  		// Jersey Servlet added to Jetty 
 		ServletHolder jerseyServletHolder = new ServletHolder(servletContainer);
-		context.addServlet(jerseyServletHolder, "/*");
+		servletcontexthandler.addServlet(jerseyServletHolder, "/*");
 		jerseyServletHolder.setInitOrder(0);
 
 
