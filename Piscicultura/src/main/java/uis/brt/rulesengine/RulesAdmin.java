@@ -56,7 +56,7 @@ public class RulesAdmin implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("instancias guradadas " + pond);
+		//System.out.println("instancias guradadas " + pond);
 		bigmap = agreggator.getState();
 		for (Entry<String, HashMap<String, String>> sensorInd : bigmap.entrySet()) {
 			//System.out.println("analizando el temporal " + temporal);

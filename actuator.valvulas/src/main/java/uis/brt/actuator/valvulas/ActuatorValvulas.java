@@ -6,15 +6,10 @@ import java.util.Set;
 
 import uis.brt.actuator.api.Actuator;
 
-public class ActuatorValvulas implements Actuator, Runnable {
+public class ActuatorValvulas implements Actuator{
 
-	private boolean state;
+	private boolean state; // al no iniciarla toma por defecto false
 	
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void configure(Properties props) {
 		Set keys = props.keySet(); // get set-view of keys
 		Iterator itr = keys.iterator();
@@ -31,27 +26,28 @@ public class ActuatorValvulas implements Actuator, Runnable {
 		this.state = state;
 	}
 
-	public void open(String mensaje) {
-		state = true;
+	public void open(String mensaje) { // abre valvulas
+		state = true; // se actualiza el estado del actuator a abierto
 		System.out.println(mensaje);
-		//System.out.println("OOOOOOOO EJECUCION: Las Valvulas han sido abiertas OOOOOOOO");
 		
 		
 	}
 
-	public void close(String mensaje) {
-		state = false;
+	public void close(String mensaje) { // cierra valvulas
+		state = false; // se actualiza el estado del actuator a cerrado
 		System.out.println(mensaje);
-		//System.out.println("XXXXXXXX EJECUCION: Las Valvulas fueron cerradas exitosamente  XXXXXXXX");
 		
 	}
-
+	
+	//recibe las nuevas ordenes enviadas desde las reglas del sistema
 	public void execute(boolean neworder, String mensaje) {
-		//System.out.println("llegamos a actuador de valvulas con orden " + neworder);
-		if(neworder)
-			open(mensaje);
+		if(state != neworder)
+			if(neworder)
+				open(mensaje);
+			else
+				close(mensaje);
 		else
-			close(mensaje);
+			System.out.println("sin cambios en valvulas");
 		
 	}
 
