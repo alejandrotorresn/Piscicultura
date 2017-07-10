@@ -33,9 +33,10 @@ public class WebInterface {
 		ServletContainer servletContainer = new ServletContainer(config);
 		// Instance of the resource (Web Service), it will use the EventBus instance
 		Home homeResource = new Home(bus, context, pond);
+		Modify modify = new Modify(bus, context, pond);
 		// Here, the resource (WS) is registered ont Jersey
 		config.register(homeResource);
-		
+		config.register(modify);
 		//////  End Jersey Code //////
 		
 		

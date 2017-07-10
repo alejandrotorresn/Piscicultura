@@ -43,7 +43,7 @@ public class Launcher {
 		theEventBus.post(configadmin);
 		
 		HashMap<String, String> ex1 = new HashMap<String, String>();
-		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("3","Phmetro");
+		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("0","Phmetro");
 		context.testing("1", "1", "cachama", "frio", "iniciacion", ex1);//configadmin.getRoute());
 		pond.add(context);
 		
@@ -57,6 +57,7 @@ public class Launcher {
 		ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
 		actuatoradmin.startActuators();
 		
+		System.out.println(" ");
 		RulesAdmin rulesAdmin = new RulesAdmin(pond); // envia las instancias creadas de cada estanque
 		rulesAdmin.setAgregator(clasedatos, actuatoradmin);
 		PlatformRule oxyba = new OxigenoBajo();
@@ -69,6 +70,7 @@ public class Launcher {
 		//rulesAdmin.register(pezcal);
 		rulesAdmin.start();
 
+		
 		try {
 			WebInterface webinterface = new WebInterface(theEventBus, context, pond);
 		} catch (Exception e) {

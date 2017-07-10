@@ -2,6 +2,7 @@ package uis.brt.rulesengine;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import uis.brt.actuator.admin.ActuatorAdmin;
 import uis.brt.context.ContextInformation;
@@ -14,6 +15,10 @@ import org.easyrules.annotation.Priority;
 @Rule//(name = "Oxigeno Alto", description = "Evalua el nivel de oxigeno y si esta por encima de lo necesario cierra la valvula")
 public class OxigenoAlto implements PlatformRule {
 
+	// valores fijos para esta regla
+	private String AssociatedSensorType = "Oximetro";
+	private String AssociatedActuatorType = "Valvula";
+	
 	private HashMap<String, String> sensorInd;
 	private double previousvalue = -1;
 	private List<ContextInformation> pond;
@@ -66,11 +71,14 @@ public class OxigenoAlto implements PlatformRule {
 				//System.out.println("tiene valor de oximetro " + ins.getDevices().containsValue("Oximetro"));
 				//System.out.println("id: " + id + " " + ins.getDevices().containsKey(id) );
 				if(ins.getDevices().containsKey(id)){
-					accion = "XXXXXXXX EJECUCION: Las Valvulas del estanque " + ins.getElement() + " fueron cerradas exitosamente  XXXXXXXX";
-					//System.out.println("la regla oxalto a establecido en false y la accion");
-					actuator.executeActuators(false, accion);
-					//System.out.println(accion);
-				}}}
+					String IdOfActuatorToExecute = "";
+					if(ins.getDevices().containsValue(AssociatedActuatorType)){ // evalua si el contexto tiene algun device con el mismo tipo de actuador de la regla
+						for(Entry<String, String> x : ins.getDevices().entrySet())
+							if(AssociatedActuatorType.equals(x.getValue().toString())){
+								IdOfActuatorToExecute = x.getKey().toString();
+								accion = "XXXXXXXX EJECUCION: Las Valvulas del estanque " + ins.getElement() + " fueron cerradas exitosamente  XXXXXXXX";
+								actuator.executeActuators(false, IdOfActuatorToExecute, AssociatedActuatorType, accion);
+							}}}}}
 		//dataaggregator.action(false); comentareado hasta que sea capaz de enviar la info a los actuadores
 	}
 

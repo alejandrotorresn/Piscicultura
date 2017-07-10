@@ -2,6 +2,7 @@ package uis.brt.rulesengine;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import uis.brt.actuator.admin.ActuatorAdmin;
 import uis.brt.context.ContextInformation;
@@ -14,6 +15,10 @@ import org.easyrules.annotation.Priority;
 @Rule//(name = "Oxigeno Bajo", description = "Evalua el nivel de oxigeno y si esta por debajo de lo permitido y abre la valvula")
 public class OxigenoBajo implements PlatformRule {
 
+	// valores fijos para esta regla
+	private String AssociatedSensorType = "Oximetro";
+	private String AssociatedActuatorType = "Valvula";
+	
 	private HashMap<String, String> sensorInd;
 	private double previousvalue = -1;
 	private List<ContextInformation> pond;
@@ -65,12 +70,15 @@ public class OxigenoBajo implements PlatformRule {
 			if(ins.getDevices().containsValue(type)){
 				//System.out.println("tiene valor de oximetro " + ins.getDevices().containsValue("Oximetro"));
 				//System.out.println("id: " + id + " " + ins.getDevices().containsKey(id) );
-				if(ins.getDevices().containsKey(id)){
-					accion = "OOOOOOOO EJECUCION: Las Valvulas del estanque " + ins.getElement() + " han sido abiertas OOOOOOOO";
-					//System.out.println("la regla oxbajo a establecido en true y la accion");
-					actuator.executeActuators(true, accion);
-					//System.out.println(accion);
-		}}}
+				if(ins.getDevices().containsKey(id)){// evalua si el contexto tiene algun device con el mismo id que se analiza ahora
+					String IdOfActuatorToExecute = "";
+					if(ins.getDevices().containsValue(AssociatedActuatorType)){ // evalua si el contexto tiene algun device con el mismo tipo de actuador de la regla
+						for(Entry<String, String> x : ins.getDevices().entrySet())
+							if(AssociatedActuatorType.equals(x.getValue().toString())){
+								IdOfActuatorToExecute = x.getKey().toString();
+								accion = "OOOOOOOO EJECUCION: Las Valvulas del estanque " + ins.getElement() + " han sido abiertas OOOOOOOO";
+								actuator.executeActuators(true, IdOfActuatorToExecute, AssociatedActuatorType, accion);
+							}}}}}
 		//dataaggregator.action(true); comentareado hasta que sea capaz de enviar la info a los actuadores
 	}
 

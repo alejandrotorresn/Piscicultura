@@ -22,7 +22,7 @@ public class SensorAdmin {
 
 	public void startSensors() {
 		System.out.println("\n\n Bus " + bus);
-		System.out.println("Loading sensors ...... \n ");
+		System.out.println("\nLoading sensors ...... \n ");
 		for (Sensor sensor : loader) {
 			System.out.println("\n -- Sensor Found = " + sensor);
 			sensor.configure(props);

@@ -21,25 +21,19 @@ import com.google.common.eventbus.Subscribe;
 public class DataAggregator {
 	
 	private HashMap<String, HashMap<String, String>> map = new HashMap<String, HashMap<String, String>>();
-	
-	//ActuatorValvulas actuatorvalvulas = new ActuatorValvulas();
-	
-	
-	public void setState(HashMap<String, String> map) {
-		//this.map.put(map.get(this), map.)
-	}
+
+
+	// getters and setters
 	public HashMap<String, HashMap<String, String>> getState() {
 		return map;
 	}
-	
-	@Subscribe 
-	public void TipoPez(String tipopez) {
-		//deshabilitado de momento porque se habilito el map de hashmaps
-		//map.put("tipo",(String) tipopez); // info del pez que se almacena en el map local
-		//System.out.println("\n *+*+*+* Se determina que los peces son de clima: " + map.get("tipo") + " *+*+*+* \n");
+	public void setMap(HashMap<String, HashMap<String, String>> map) {
+		this.map = map;
 	}
 
-	@Subscribe //System.out.println("tamaño del mapa " + map.size());
+	
+	
+	@Subscribe //metodo que recibe un message con id, type y value
 	public void receiveData(Message message) {
 		String k = message.getId().toString();  //k = k.substring(1); // quita el primer caracter [  //k = k.substring(0, k.length()-1); // quita el ultimo caracter ]
 		
@@ -47,27 +41,15 @@ public class DataAggregator {
 		t.put("id", k);
 		t.put("type",  message.getType().toString());
 		t.put("value", message.getValue().toString());
-		//System.out.println("esto es lo que se almaceno en k = " + k);
-		//if(k.equalsIgnoreCase("Oximetro")){
-				//map.put("tipo", (String) "calido"); // quitar si el webservice esta enviando correctamente
-			map.put(k, t);// info que se almacena en el map local
-			//if(!map.containsKey("tipo"))
-				//map.put("tipo", (String)message.getMap().get("tipo"));
-		//}
+		map.put(k, t);// info que se almacena en el map local
+		//System.out.println("tamaño del mapa " + map.size());
 		System.out.println("\n ----- \n "
-				+ "Receiving a data, from sensor id: " + map.get(k).get("id") + "," // identificador
-				+ "\n type: " + map.get(k).get("type") + "," // tipo de sensor
-				+ "\n value= " + map.get(k).get("value") // valor medido
-				+ "\n ----- \n " );
+							+ "Receiving a data, from sensor id: " + map.get(k).get("id") + "," // identificador
+							+ " type: " + map.get(k).get("type") + "," // tipo de sensor
+							+ "\n value= " + map.get(k).get("value") // valor medido
+							+ "\n ----- \n " );
+	}
 
-	}
-/* ya no se necesita, se dejo de usar
-	public void action(boolean actionexecute){
-		
-		//ActuatorValvulas.execute(actionexecute);
-		
-	}
-*/
 	
 	
 	

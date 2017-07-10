@@ -16,6 +16,7 @@ uis\brt\sensor\admin\SensorAdmin.class
 uis\brt\web\WebInterface.class
 uis\brt\util\Fecha.class
 uis\brt\launcher\Launcher.class
+uis\brt\web\Modify.class
 uis\brt\rulesengine\RulesAdmin.class
 uis\brt\sender\RestSender.class
 uis\brt\rulesengine\OxigenoAlto.class

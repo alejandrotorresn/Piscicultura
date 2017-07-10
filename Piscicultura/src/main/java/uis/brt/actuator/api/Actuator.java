@@ -21,4 +21,7 @@ public interface Actuator {
 	
 	// Se ejecuta dependiendo del estado del actuador
 	public void execute(boolean change, String mensajeAction);
+	
+	public String getId();
+	public String getType();
 }

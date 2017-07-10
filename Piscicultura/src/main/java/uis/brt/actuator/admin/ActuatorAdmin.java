@@ -22,7 +22,7 @@ public class ActuatorAdmin {
 
 	public void startActuators() {
 		System.out.println("\n\n Bus " + bus);
-		System.out.println("Loading actuators ...... \n ");
+		System.out.println("\nLoading actuators ...... \n ");
 		for (Actuator actuator : loader) {
 			System.out.println("\n -- Actuator Found = " + actuator);
 			actuator.configure(props);
@@ -32,11 +32,11 @@ public class ActuatorAdmin {
 		}
 	}
 	
-	public void executeActuators(boolean change, String mensajeAction){
-		//System.out.println("estamos dentro de execute actuators con change " + change);
+	public void executeActuators(boolean change, String idAct, String type, String mensajeAction){
 		for (Actuator actuator : loader) {
-			//System.out.println("estamos en actuator admin en cada actuador enviando el cambio y el mensaje de accion" + actuator);
-			actuator.execute(change, mensajeAction);
+			if( (idAct.equals(actuator.getId().toString()))  &  (type.equals(actuator.getType().toString())) ){
+				actuator.execute(change, mensajeAction);
+				}
 		}
 	}
 

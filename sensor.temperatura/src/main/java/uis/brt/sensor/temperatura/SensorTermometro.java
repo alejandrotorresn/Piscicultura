@@ -17,7 +17,7 @@ import com.google.common.eventbus.EventBus;
 public class SensorTermometro implements Sensor, Runnable {
 
 	private EventBus thisEB;
-	//HashMap<String, Object> map = new HashMap<String, Object>();
+	private String id="1", type="Termometro";
 	//private String pez = "";
 
 	public void setBus(EventBus bus) {
@@ -32,16 +32,21 @@ public class SensorTermometro implements Sensor, Runnable {
 	public void stop() {
 	}
 	
-	public void run() { //System.out.println("tamaño del mapa " + map.size()); 
+	public void run() {  
 		int value = ThreadLocalRandom.current().nextInt(5, 33);
 		//System.out.println("*+ se crea valor aleatorio en termometro  " + value);
-		//map.put("Termometro", value);
-		Message message = new Message("1", "Termometro", value);
-		//Message message = new Message("1", map);
+		Message message = new Message(id, type, value);// momentaneamente quemado en el codigo pero
+		// la idea es que se tome esta informacion del archivo config.properties para hacer este metodo mas generico
 		thisEB.post(message);
 	}
 
 	public void configure(Properties props) {
+		System.out.println("Id= " + props.getProperty("id".concat(id)));
+		System.out.println("Type= " + props.getProperty("type".concat(id)));
+		System.out.println("Min medido= " + props.getProperty("minmedido".concat(id)));
+		System.out.println("Max medido= " + props.getProperty("maxmedido".concat(id)));
+
+/*	metodo anterior que hacia que se imprimieran en pantalla todos los valores de la llaves guardadas
 		Set keys = props.keySet(); // get set-view of keys
 		Iterator itr = keys.iterator();
 
@@ -50,6 +55,7 @@ public class SensorTermometro implements Sensor, Runnable {
 			System.out.println("The value of " + str + " is "
 					+ props.getProperty(str) + ".");
 		}
+*/
 	}
 	/*
 	public void TipoPez(){
