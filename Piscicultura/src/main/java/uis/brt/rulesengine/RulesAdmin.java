@@ -56,15 +56,11 @@ public class RulesAdmin implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("ANALIZANDO REGLAS");
 		bigmap = agreggator.getState();
 		for (Entry<String, HashMap<String, String>> sensorInd : bigmap.entrySet()) {
-			//System.out.println("analizando el temporal " + temporal);
 			for (PlatformRule rule : rules) {
-				//System.out.println("actualizando regla " + temporal.getValue());
 				rule.setData(sensorInd.getValue(), pond, actuator);
 			}
-			//System.out.println("motor de reglas iniciado");
 			rulesEngine.fireRules();
 		}
 	}

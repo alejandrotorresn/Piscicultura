@@ -43,7 +43,7 @@ public class Launcher {
 		theEventBus.post(configadmin);
 		
 		HashMap<String, String> ex1 = new HashMap<String, String>();
-		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("0","Phmetro");
+		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("0","Mensaje");
 		context.testing("1", "1", "cachama", "frio", "iniciacion", ex1);//configadmin.getRoute());
 		pond.add(context);
 		
@@ -62,12 +62,12 @@ public class Launcher {
 		rulesAdmin.setAgregator(clasedatos, actuatoradmin);
 		PlatformRule oxyba = new OxigenoBajo();
 		PlatformRule oxyal = new OxigenoAlto();
-		//PlatformRule pezfri = new PezFrio();
-		//PlatformRule pezcal = new PezCalido();
+		PlatformRule pezfri = new PezFrio();
+		PlatformRule pezcal = new PezCalido();
 		rulesAdmin.register(oxyba);
 		rulesAdmin.register(oxyal);
-		//rulesAdmin.register(pezfri);
-		//rulesAdmin.register(pezcal);
+		rulesAdmin.register(pezfri);
+		rulesAdmin.register(pezcal);
 		rulesAdmin.start();
 
 		

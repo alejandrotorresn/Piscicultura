@@ -22,7 +22,7 @@ public class ContextInformation {
 		this.weather = "calido";
 		this.cycle = "engorde";
 		HashMap<String, String> example = new HashMap<String, String>();
-		example.put("3","Valvula"); example.put("4","Oximetro");  example.put("5","Llave");
+		example.put("3","Valvula"); example.put("4","Oximetro");  example.put("5","Phmetro");
 		devices = example;
 	}
 	
