@@ -16,8 +16,8 @@ import org.easyrules.annotation.Priority;
 public class PezCalido implements PlatformRule {
 
 	// valores fijos para esta regla
-	private String AssociatedSensorType = "Termometro"; //Tipo de sensor asociado a esta regla
-	private String AssociatedActuatorType = "Mensaje"; //Tipo de actuador asociado a esta regla
+	private String AssociatedSensorType = "termometro"; //Tipo de sensor asociado a esta regla
+	private String AssociatedActuatorType = "mensaje"; //Tipo de actuador asociado a esta regla
 	private HashMap<String, Integer> previousvalue = new HashMap<String, Integer>(); // guardara la medicion anterior en forma -> IdDevice, value
 	private String accion = ""; //mensaje que se envia a su respectivo actuador
 

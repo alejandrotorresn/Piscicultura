@@ -8,7 +8,7 @@ import com.google.common.eventbus.EventBus;
  */
 public interface Sensor {
 
-	public void configure(Properties props);
+	public void configure(String id);
 	
 	//Modifica el bus de comunicaciones  @param bus
 	public void setBus(EventBus bus); 

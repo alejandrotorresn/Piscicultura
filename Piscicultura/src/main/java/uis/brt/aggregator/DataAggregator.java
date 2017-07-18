@@ -22,7 +22,6 @@ public class DataAggregator {
 	
 	private HashMap<String, HashMap<String, String>> map = new HashMap<String, HashMap<String, String>>();
 
-
 	// getters and setters
 	public HashMap<String, HashMap<String, String>> getState() {
 		return map;
@@ -31,7 +30,6 @@ public class DataAggregator {
 		this.map = map;
 	}
 
-	
 	
 	@Subscribe //metodo que recibe un message con id, type y value
 	public void receiveData(Message message) {

@@ -16,8 +16,8 @@ import org.easyrules.annotation.Priority;
 public class OxigenoBajo implements PlatformRule {
 
 	// valores fijos para esta regla
-	private String AssociatedSensorType = "Oximetro"; //Tipo de sensor asociado a esta regla
-	private String AssociatedActuatorType = "Valvula"; //Tipo de actuador asociado a esta regla
+	private String AssociatedSensorType = "oximetro"; //Tipo de sensor asociado a esta regla
+	private String AssociatedActuatorType = "valvula"; //Tipo de actuador asociado a esta regla
 	private HashMap<String, Double> previousvalue = new HashMap<String, Double>(); // guardara la medicion anterior en forma -> IdDevice, value
 	private String accion = ""; //mensaje que se envia a su respectivo actuador
 	

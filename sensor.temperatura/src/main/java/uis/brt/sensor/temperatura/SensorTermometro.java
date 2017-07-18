@@ -17,8 +17,8 @@ import com.google.common.eventbus.EventBus;
 public class SensorTermometro implements Sensor, Runnable {
 
 	private EventBus thisEB;
-	private String id="1", type="Termometro";
-	//private String pez = "";
+	private String id;
+	private String type = "termometro";
 
 	public void setBus(EventBus bus) {
 		thisEB=bus;
@@ -40,12 +40,16 @@ public class SensorTermometro implements Sensor, Runnable {
 		thisEB.post(message);
 	}
 
-	public void configure(Properties props) {
-		System.out.println("Id= " + props.getProperty("id".concat(id)));
+	public void configure(String id){//(Properties props) {
+
+		this.id = id;
+		System.out.println("Id= " + id);
+		System.out.println("Type= " + type);
+/*		System.out.println("Id= " + props.getProperty("id".concat(id)));
 		System.out.println("Type= " + props.getProperty("type".concat(id)));
 		System.out.println("Min medido= " + props.getProperty("minmedido".concat(id)));
 		System.out.println("Max medido= " + props.getProperty("maxmedido".concat(id)));
-
+*/
 /*	metodo anterior que hacia que se imprimieran en pantalla todos los valores de la llaves guardadas
 		Set keys = props.keySet(); // get set-view of keys
 		Iterator itr = keys.iterator();
@@ -57,20 +61,4 @@ public class SensorTermometro implements Sensor, Runnable {
 		}
 */
 	}
-	/*
-	public void TipoPez(){
-		int v = ThreadLocalRandom.current().nextInt(1, 3);
-		switch (v) {
-		case 1:
-			map.put("tipo","frio");
-			break;
-			
-		case 2:
-			map.put("tipo","calido");
-			break;
-		default:
-			break;
-		}
-	}*/
-	
 }

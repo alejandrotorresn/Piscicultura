@@ -34,9 +34,11 @@ public class WebInterface {
 		// Instance of the resource (Web Service), it will use the EventBus instance
 		Home homeResource = new Home(bus, context, pond);
 		Modify modify = new Modify(bus, context, pond);
+		Consult consult = new Consult(bus, context, pond);
 		// Here, the resource (WS) is registered ont Jersey
 		config.register(homeResource);
 		config.register(modify);
+		config.register(consult);
 		//////  End Jersey Code //////
 		
 		

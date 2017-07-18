@@ -8,7 +8,7 @@ import com.google.common.eventbus.EventBus;
  */
 public interface Actuator {
 
-	public void configure(Properties props);
+	public void configure(String id);
 
 	// Establece el estado del actuador
 	public void state(boolean state);

@@ -56,6 +56,7 @@ public class RulesAdmin implements Runnable {
 	}
 
 	public void run() {
+		System.out.println("### EJECUCION DE REGLAS ###");
 		bigmap = agreggator.getState();
 		for (Entry<String, HashMap<String, String>> sensorInd : bigmap.entrySet()) {
 			for (PlatformRule rule : rules) {

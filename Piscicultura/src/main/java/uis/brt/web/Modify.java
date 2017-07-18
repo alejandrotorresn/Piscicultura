@@ -118,7 +118,7 @@ public class Modify {
 		}}
 		
 		result=	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
-				+ "</br></br>Estanque MODIFICADO con exito: " + element +"</br></br>"
+				+ "</br></br>Estanque " + element + " MODIFICADO con exito en el grupo: " + element +"</br></br>"
 				+ "utilizando el metodo POST</br></br>"
 				+ "<A href="+ linkhome +">DEVOLVERSE A 'HOME'</A></br></br>"
 				+ "</blockquote></BODY></HTML>";

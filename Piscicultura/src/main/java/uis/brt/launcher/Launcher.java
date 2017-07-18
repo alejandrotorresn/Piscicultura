@@ -43,7 +43,7 @@ public class Launcher {
 		theEventBus.post(configadmin);
 		
 		HashMap<String, String> ex1 = new HashMap<String, String>();
-		ex1.put("1","Termometro"); ex1.put("2","Oximetro"); ex1.put("0","Mensaje");
+		ex1.put("1","termometro"); ex1.put("3","phmetro"); ex1.put("51","mensaje");
 		context.testing("1", "1", "cachama", "frio", "iniciacion", ex1);//configadmin.getRoute());
 		pond.add(context);
 		
@@ -52,10 +52,10 @@ public class Launcher {
 		pond.add(context);
 
 		SensorAdmin sensorAdmin = new SensorAdmin(theEventBus, configadmin);
-		sensorAdmin.startSensors();
+		//sensorAdmin.startSensors();
 		
 		ActuatorAdmin actuatoradmin = new ActuatorAdmin(theEventBus, configadmin);
-		actuatoradmin.startActuators();
+		//actuatoradmin.startActuators();
 		
 		System.out.println(" ");
 		RulesAdmin rulesAdmin = new RulesAdmin(pond); // envia las instancias creadas de cada estanque

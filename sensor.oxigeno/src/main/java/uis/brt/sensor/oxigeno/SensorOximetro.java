@@ -9,16 +9,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import com.google.common.eventbus.EventBus;
-
 import uis.brt.sensor.api.Message;
 import uis.brt.sensor.api.Sensor;
 
+import com.google.common.eventbus.EventBus;
 
 public class SensorOximetro implements Sensor, Runnable {
 
 	private EventBus thisEB; 
-	private String id="4", type="Oximetro";
+	private String id;
+	private String type = "oximetro";
 
 	public void setBus(EventBus bus) {
 		thisEB=bus;
@@ -40,12 +40,16 @@ public class SensorOximetro implements Sensor, Runnable {
 		thisEB.post(message);
 	}
 
-	public void configure(Properties props) {
-		System.out.println("Id= " + props.getProperty("id".concat(id)));
+	public void configure(String id){//(Properties props) {
+
+		this.id = id;
+		System.out.println("Id= " + id);
+		System.out.println("Type= " + type);
+/*		System.out.println("Id= " + props.getProperty("id".concat(id)));
 		System.out.println("Type= " + props.getProperty("type".concat(id)));
 		System.out.println("Min medido= " + props.getProperty("minmedido".concat(id)));
 		System.out.println("Max medido= " + props.getProperty("maxmedido".concat(id)));
-		
+*/		
 /*	metodo anterior que hacia que se imprimieran en pantalla todos los valores de la llaves guardadas
 		Set keys = props.keySet(); // get set-view of keys
 		Iterator itr = keys.iterator();

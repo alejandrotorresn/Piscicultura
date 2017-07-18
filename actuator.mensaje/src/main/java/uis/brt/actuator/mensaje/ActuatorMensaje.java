@@ -8,10 +8,9 @@ import uis.brt.actuator.api.Actuator;
 
 public class ActuatorMensaje implements Actuator{
 
-	private boolean state; // al no iniciarla toma por defecto false
-	// momentaneamente variables id y type quemadas en el codigo pero
-	// la idea es que se tome esta informacion del archivo config.properties para hacer este metodo mas generico
-	private String id = "0", type = "Mensaje";
+	private String type = "mensaje"; // valor fijo, debido a que estamos en la clase especifica ActuatorMensaje
+	private boolean state;
+	private String id;
 	
 	// gets and setters
 	public String getId() {return id;}
@@ -20,11 +19,15 @@ public class ActuatorMensaje implements Actuator{
 	public void setType(String type) {this.type = type;}
 	
 
-	public void configure(Properties props) {
-		System.out.println("Id= " + props.getProperty("id".concat(id)));
+	public void configure(String id) {//(Properties props) {
+
+		this.id = id;
+		System.out.println("Id= " + id);
+		System.out.println("Type= " + type);
+/*		System.out.println("Id= " + props.getProperty("id".concat(id)));
 		System.out.println("Type= " + props.getProperty("type".concat(id)));
 		System.out.println("State= " + props.getProperty("state".concat(id)));
-		
+*/		
 /*	metodo anterior que hacia que se imprimieran en pantalla todos los valores de la llaves guardadas
 		Set keys = props.keySet(); // get set-view of keys
 		Iterator itr = keys.iterator();

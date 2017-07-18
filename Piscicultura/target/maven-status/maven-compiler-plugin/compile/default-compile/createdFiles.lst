@@ -3,6 +3,8 @@ uis\brt\rulesengine\OxigenoBajo.class
 uis\brt\sensor\api\Coordinate.class
 uis\brt\sensor\api\Sensor.class
 uis\brt\web\Home.class
+uis\brt\actuator\api\ActuatorFactory.class
+uis\brt\web\Consult.class
 uis\brt\aggregator\DataAggregator.class
 uis\brt\config\ConfigAdmin.class
 uis\brt\rulesengine\PlatformRule.class
@@ -11,6 +13,7 @@ uis\brt\rulesengine\PezFrio.class
 uis\brt\actuator\admin\ActuatorAdmin.class
 uis\brt\persistence\Persistence.class
 uis\brt\sensor\api\Message.class
+uis\brt\sensor\api\SensorFactory.class
 uis\brt\rulesengine\PezCalido.class
 uis\brt\sensor\admin\SensorAdmin.class
 uis\brt\web\WebInterface.class

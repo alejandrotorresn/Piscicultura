@@ -32,6 +32,7 @@ public class Home {
 	String linkhome = "http://localhost:8080/home";
 	String linkagre = "http://localhost:8080/home/agregar";
 	String linkmodi = "http://localhost:8080/modificar";
+	String linkcons = "http://localhost:8080/consultar";
 	String linkelim = "http://localhost:8080/home/eliminar";
 	String result;
 	
@@ -49,6 +50,7 @@ public class Home {
 				+ "<form action="+ linkhome +" method="+POST+">"
 				+ "<blockquote></br></br>ESTAS EN 'HOME', ESCOGE LA OPCION QUE DESEA REALIZAR: </br></br></br>"
 				+ "(los siguientes links se realizaran por metodo get) </br></br>"
+				+ "<A href="+ linkcons +">CONSULTAR un estanque</A></br></br>"
 				+ "<A href="+ linkagre +">AGREGAR un estanque</A></br></br>"
 				+ "<A href="+ linkmodi +">MODIFICAR un estanque</A></br></br>"
 				+ "<A href="+ linkelim +">ELIMINAR un estanque</A></br></br>"
@@ -100,7 +102,7 @@ public class Home {
 		pond.add(context);
 
 		result=	"<HTML><HEAD><TITLE>PISCICULTURA</TITLE></HEAD><BODY><blockquote>"
-				+ "</br></br>Estanque agregado con exito: " + element +"</br></br>"
+				+ "</br></br>Estanque " + element +" agregado con exito en el grupo: " + group +"</br></br>"
 				+ "utilizando el metodo POST</br></br>"
 				+ "<A href="+ linkhome +">DEVOLVERSE A 'HOME'</A></br></br>"
 				+ "</blockquote></BODY></HTML>";
