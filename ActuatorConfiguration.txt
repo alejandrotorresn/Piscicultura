@@ -1,6 +1,0 @@
-51
-mensaje
-close
-52
-valvula
-close
